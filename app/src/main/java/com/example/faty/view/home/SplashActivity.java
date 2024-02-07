@@ -1,16 +1,14 @@
-package com.example.faty;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.faty.view.home;
 
 import android.os.Bundle;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.faty.R;
 
 
 public class SplashActivity extends Activity {
@@ -27,7 +25,7 @@ public class SplashActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent=new Intent(SplashActivity.this,MainActivity.class);
+                Intent intent=new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
