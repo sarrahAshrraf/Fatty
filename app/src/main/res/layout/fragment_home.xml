@@ -78,11 +78,60 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvQues">
 
-                <ImageView
-                    android:id="@+id/dailyMealImg"
-                    android:layout_width="115dp"
-                    android:layout_height="131dp"
-                    android:layout_gravity="start|center_vertical" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <ImageView
+                        android:id="@+id/dailyMealImg"
+                        android:layout_width="207dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
+                        android:background="@drawable/rounded_corners"
+                        android:src="@drawable/randomeal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:id="@+id/tvRandomCat"
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|clip_vertical"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/myfont"
+                            android:gravity="center"
+                            android:hint="Category"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvMealName"
+                            android:layout_width="133dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|clip_vertical"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/myfont"
+                            android:gravity="start|top"
+                            android:hint="Random Meal Name" />
+
+                        <Button
+                            android:id="@+id/btnDetailsRandom"
+                            android:layout_width="166dp"
+                            android:layout_height="5dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/buttons"
+                            android:text="Deatils here"
+                            android:textColor="@color/primary_text" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
