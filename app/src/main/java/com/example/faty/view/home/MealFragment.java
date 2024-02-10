@@ -16,7 +16,10 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.faty.Presenter.MealContract;
 import com.example.faty.Presenter.MealPresenter;
 import com.example.faty.R;
+import com.example.faty.pojo.Category;
 import com.example.faty.pojo.Meal;
+
+import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -49,6 +52,11 @@ public class MealFragment extends Fragment implements MealContract.View {
             presenter.getMealDetails(mealId);
         }
         return view;
+    }
+
+    @Override
+    public void showCategories(List<Category> categoryList) {
+
     }
 
     @Override

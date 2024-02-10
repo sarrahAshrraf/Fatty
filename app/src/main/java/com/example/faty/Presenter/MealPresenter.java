@@ -1,5 +1,6 @@
 package com.example.faty.Presenter;
 
+import com.example.faty.pojo.MealCategoryList;
 import com.example.faty.pojo.MealList;
 import com.example.faty.retrofit.MealApi;
 import com.example.faty.retrofit.RetrofitClient;
@@ -63,6 +64,33 @@ public class MealPresenter implements MealContract.Presenter {
 
             @Override
             public void onFailure(Call<MealList> call, Throwable t) {
+                view.displayError("API request failed: " + t.getMessage());
+            }
+        });
+    }
+
+
+
+    @Override
+    public void getMealCategoriesList() {
+        Call<MealCategoryList> call = mealApi.getMealCategoriesList();
+        call.enqueue(new Callback<MealCategoryList>() {
+            @Override
+            public void onResponse(Call<MealCategoryList> call, Response<MealCategoryList> response) {
+                if (response.isSuccessful()) {
+                    MealCategoryList categoryList = response.body();
+                    if (categoryList != null) {
+                        view.showCategories(categoryList.getCategories());
+                    } else {
+                        view.displayError("No categories found");
+                    }
+                } else {
+                    view.displayError("API request failed");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealCategoryList> call, Throwable t) {
                 view.displayError("API request failed: " + t.getMessage());
             }
         });
