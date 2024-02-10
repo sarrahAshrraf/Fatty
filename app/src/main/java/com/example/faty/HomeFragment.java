@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +15,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.faty.Presenter.MealCategoryAdapter;
 import com.example.faty.Presenter.MealContract;
 import com.example.faty.Presenter.MealPresenter;
 
+import com.example.faty.pojo.Category;
 import com.example.faty.pojo.Meal;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+
+import java.util.List;
 
 
 public class HomeFragment extends Fragment implements MealContract.View {
@@ -28,6 +34,8 @@ public class HomeFragment extends Fragment implements MealContract.View {
     private TextView mealNameTextView;
     private TextView mealCatTxt;
     private String mealId;
+    private RecyclerView categoryRecyclerView;
+    private MealCategoryAdapter categoryAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +46,12 @@ public class HomeFragment extends Fragment implements MealContract.View {
         presenter = new MealPresenter(this);
         presenter.getRandomMeal();
         onRandomClick();
+
+        categoryRecyclerView = view.findViewById(R.id.categoriesItems);
+        categoryRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+
+      //  presenter = new MealPresenter(this);
+        presenter.getMealCategoriesList();
         return view;
     }
 
@@ -76,5 +90,12 @@ public class HomeFragment extends Fragment implements MealContract.View {
         });
 
 
+    }
+
+
+    @Override
+    public void showCategories(List<Category> categoryList) {
+        categoryAdapter = new MealCategoryAdapter(categoryList);
+        categoryRecyclerView.setAdapter(categoryAdapter);
     }
 }
