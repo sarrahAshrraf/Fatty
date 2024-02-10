@@ -20,6 +20,7 @@ import com.example.faty.Presenter.MealPresenter;
 import com.example.faty.R;
 import com.example.faty.pojo.Category;
 import com.example.faty.pojo.Meal;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.List;
 
@@ -35,6 +36,8 @@ public class MealFragment extends Fragment implements MealContract.View {
 
     private String mealId;
     private WebView webView;
+    CollapsingToolbarLayout collapsingToolbarLayout ;
+
 
 
     @Override
@@ -45,6 +48,7 @@ public class MealFragment extends Fragment implements MealContract.View {
         tvMealInstructions = view.findViewById(R.id.instructionTxt);
         tvMealCountry = view.findViewById(R.id.tvcountryMeal);
         webView = view.findViewById(R.id.mealVid);
+        collapsingToolbarLayout = view.findViewById(R.id.collapsingToolbarLayout);
         presenter = new MealPresenter(this);
         presenter.getRandomMeal();
 
@@ -72,6 +76,9 @@ public class MealFragment extends Fragment implements MealContract.View {
         tvMealCategory.setText(meal.getStrCategory());
         tvMealInstructions.setText(meal.getStrInstructions());
         tvMealCountry.setText(meal.getStrArea());
+        collapsingToolbarLayout.setTitle(meal.getStrMeal());
+
+
     //    String vid = "<iframe width=\"100%\" height=\"100%\" src=\""+meal.getStrYoutube()+"\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
       //  String vid = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/MWzxDFRtVbc?si=20a0LoFL5Stzj-1h\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
         String youtubeUrl = meal.getStrYoutube();
@@ -80,6 +87,8 @@ public class MealFragment extends Fragment implements MealContract.View {
         webView.loadData(iframeCode, "text/html", "UTF-8");
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebChromeClient(new WebChromeClient());
+
+
     }
 
     @Override
