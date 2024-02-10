@@ -78,19 +78,34 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvQues">
 
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animationView"
+                    android:layout_width="208dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_alignParentEnd="false"
+                    android:layout_alignParentBottom="false"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/loading" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
+
                     <ImageView
                         android:id="@+id/dailyMealImg"
                         android:layout_width="207dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="start"
-                        android:background="@drawable/rounded_corners"
-                        android:src="@drawable/randomeal" />
+                        android:background="@drawable/rounded_corners" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

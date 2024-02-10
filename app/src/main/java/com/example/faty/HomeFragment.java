@@ -3,6 +3,7 @@ package com.example.faty;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,7 @@ public class HomeFragment extends Fragment implements MealContract.View {
         mealCatTxt = view.findViewById(R.id.tvRandomCat);
         presenter = new MealPresenter(this);
         presenter.getRandomMeal();
-
+        onRandomClick();
         return view;
     }
 
@@ -55,5 +56,15 @@ public class HomeFragment extends Fragment implements MealContract.View {
     @Override
     public void displayError(String message) {
        Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();
+    }
+    public void onRandomClick(){
+        mealImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_mealFragment);
+            }
+        });
+
+
     }
 }
