@@ -121,6 +121,7 @@
             </TextView>
 
             <TextView
+                android:id="@+id/contentInst"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/instructionTxt"
@@ -131,6 +132,20 @@
 
 
             </TextView>
+
+            <WebView
+                android:id="@+id/mealVid"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_250sdp"
+                app:layout_constraintStart_toStartOf="@id/contentInst"
+                app:layout_constraintTop_toBottomOf="@id/contentInst"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+
+                >
+
+            </WebView>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

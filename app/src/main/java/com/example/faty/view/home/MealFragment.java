@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +34,7 @@ public class MealFragment extends Fragment implements MealContract.View {
     private TextView tvMealCountry;
 
     private String mealId;
+    private WebView webView;
 
 
     @Override
@@ -41,7 +44,7 @@ public class MealFragment extends Fragment implements MealContract.View {
         tvMealCategory = view.findViewById(R.id.tvcatMeal);
         tvMealInstructions = view.findViewById(R.id.instructionTxt);
         tvMealCountry = view.findViewById(R.id.tvcountryMeal);
-
+        webView = view.findViewById(R.id.mealVid);
         presenter = new MealPresenter(this);
         presenter.getRandomMeal();
 
@@ -69,6 +72,14 @@ public class MealFragment extends Fragment implements MealContract.View {
         tvMealCategory.setText(meal.getStrCategory());
         tvMealInstructions.setText(meal.getStrInstructions());
         tvMealCountry.setText(meal.getStrArea());
+    //    String vid = "<iframe width=\"100%\" height=\"100%\" src=\""+meal.getStrYoutube()+"\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
+      //  String vid = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/MWzxDFRtVbc?si=20a0LoFL5Stzj-1h\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
+        String youtubeUrl = meal.getStrYoutube();
+        String videoId = youtubeUrl.substring(youtubeUrl.indexOf("v=") + 2, youtubeUrl.length());
+        String iframeCode = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/" + videoId + "\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
+        webView.loadData(iframeCode, "text/html", "UTF-8");
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebChromeClient(new WebChromeClient());
     }
 
     @Override
