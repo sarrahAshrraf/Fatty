@@ -6,9 +6,11 @@ public interface MealContract {
     interface View {
         void displayMeal(Meal meal);
         void displayError(String message);
+        String getMealId();
     }
 
     interface Presenter {
         void getRandomMeal();
+        void getMealDetails(String mealId);
     }
 }

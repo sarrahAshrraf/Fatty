@@ -72,6 +72,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    android:id="@+id/tvcatMeal"
                     android:layout_width="82dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -79,23 +80,24 @@
                     android:drawableTint="@color/primary_text"
                     android:fontFamily="@font/myfont"
                     android:text="Category:Chicken"
-                    android:textColor="@color/primary_text"
 
+                    android:textColor="@color/primary_text"
                     android:textStyle="bold">
 
                 </TextView>
 
                 <TextView
+                    android:id="@+id/tvcountryMeal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Country:America"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary_text"
+                    android:layout_weight="1"
                     android:drawableLeft="@drawable/location"
                     android:drawableTint="@color/primary_text"
                     android:fontFamily="@font/myfont"
+                    android:text="Country:America"
 
-                    android:layout_weight="1">
+                    android:textColor="@color/primary_text"
+                    android:textStyle="bold">
 
                 </TextView>
 
@@ -131,9 +133,17 @@
             </TextView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressLinearBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_anchorGravity="bottom"
+        android:visibility="gone">
+
+    </com.google.android.material.progressindicator.LinearProgressIndicator>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

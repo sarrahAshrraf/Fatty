@@ -27,6 +27,7 @@ public class HomeFragment extends Fragment implements MealContract.View {
     private ImageView mealImageView;
     private TextView mealNameTextView;
     private TextView mealCatTxt;
+    private String mealId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,18 +52,27 @@ public class HomeFragment extends Fragment implements MealContract.View {
 
         mealNameTextView.setText(meal.getStrMeal());
         mealCatTxt.setText(meal.getStrCategory());
+        mealId = meal.getidMeal();
     }
 
     @Override
     public void displayError(String message) {
        Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public String getMealId() {
+        return mealId;
+    }
+
     public void onRandomClick(){
         mealImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_mealFragment);
-            }
+
+                Bundle bundle = new Bundle();
+                bundle.putString("mealId", mealId);
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_mealFragment, bundle);            }
         });
 
 

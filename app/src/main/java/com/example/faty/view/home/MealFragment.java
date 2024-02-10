@@ -7,60 +7,68 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.example.faty.Presenter.MealContract;
+import com.example.faty.Presenter.MealPresenter;
 import com.example.faty.R;
+import com.example.faty.pojo.Meal;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MealFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MealFragment extends Fragment {
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class MealFragment extends Fragment implements MealContract.View {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private MealContract.Presenter presenter;
+    private ImageView mealImageView;
+    private TextView tvMealCategory;
+    private TextView tvMealInstructions;
+    private TextView tvMealCountry;
 
-    public MealFragment() {
-        // Required empty public constructor
-    }
+    private String mealId;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MealFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MealFragment newInstance(String param1, String param2) {
-        MealFragment fragment = new MealFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_meal, container, false);
+        mealImageView = view.findViewById(R.id.mealImg);
+        tvMealCategory = view.findViewById(R.id.tvcatMeal);
+        tvMealInstructions = view.findViewById(R.id.instructionTxt);
+        tvMealCountry = view.findViewById(R.id.tvcountryMeal);
+
+        presenter = new MealPresenter(this);
+        presenter.getRandomMeal();
+
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mealId = bundle.getString("mealId");
+            presenter.getMealDetails(mealId);
         }
+        return view;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_meal, container, false);
+    public void displayMeal(Meal meal) {
+        Glide.with(requireContext())
+                .load(meal.getStrMealThumb())
+                .transform(new CenterCrop(), new RoundedCornersTransformation(1, 0))
+                .into(mealImageView);
+
+        tvMealCategory.setText(meal.getStrCategory());
+        tvMealInstructions.setText(meal.getStrInstructions());
+        tvMealCountry.setText(meal.getStrArea());
+    }
+
+    @Override
+    public void displayError(String message) {
+        Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public String getMealId() {
+        return mealId;
     }
 }

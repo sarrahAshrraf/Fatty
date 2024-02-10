@@ -7,11 +7,11 @@ import com.example.faty.retrofit.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 public class MealPresenter implements MealContract.Presenter {
 
     private MealContract.View view;
     private MealApi mealApi;
+
 
     public MealPresenter(MealContract.View view) {
         this.view = view;
@@ -21,6 +21,31 @@ public class MealPresenter implements MealContract.Presenter {
     @Override
     public void getRandomMeal() {
         Call<MealList> call = mealApi.getRandomMeal();
+        call.enqueue(new Callback<MealList>() {
+            @Override
+            public void onResponse(Call<MealList> call, Response<MealList> response) {
+                if (response.isSuccessful()) {
+                    MealList mealList = response.body();
+                    if (mealList != null && mealList.getMeals() != null && !mealList.getMeals().isEmpty()) {
+                        view.displayMeal(mealList.getMeals().get(0));
+                    } else {
+                        view.displayError("No meals found");
+                    }
+                } else {
+                    view.displayError("API request failed");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealList> call, Throwable t) {
+                view.displayError("API request failed: " + t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getMealDetails(String mealId) {
+        Call<MealList> call = mealApi.getMealsDetails(mealId);
         call.enqueue(new Callback<MealList>() {
             @Override
             public void onResponse(Call<MealList> call, Response<MealList> response) {
