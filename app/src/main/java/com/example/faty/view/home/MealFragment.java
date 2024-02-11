@@ -19,6 +19,7 @@ import com.example.faty.Presenter.MealContract;
 import com.example.faty.Presenter.MealPresenter;
 import com.example.faty.R;
 import com.example.faty.pojo.Category;
+import com.example.faty.pojo.Country;
 import com.example.faty.pojo.Meal;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -98,5 +99,10 @@ public class MealFragment extends Fragment implements MealContract.View {
     @Override
     public String getMealId() {
         return mealId;
+    }
+
+    @Override
+    public void showCountries(List<Country> countryList) {
+
     }
 }

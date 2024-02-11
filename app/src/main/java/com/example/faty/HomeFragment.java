@@ -15,11 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.faty.Presenter.CountryAdapter;
 import com.example.faty.Presenter.MealCategoryAdapter;
 import com.example.faty.Presenter.MealContract;
 import com.example.faty.Presenter.MealPresenter;
 
 import com.example.faty.pojo.Category;
+import com.example.faty.pojo.Country;
 import com.example.faty.pojo.Meal;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -36,6 +38,10 @@ public class HomeFragment extends Fragment implements MealContract.View {
     private String mealId;
     private RecyclerView categoryRecyclerView;
     private MealCategoryAdapter categoryAdapter;
+    private RecyclerView countryRecyclerView;
+    private CountryAdapter countryAdapter;
+    private String country;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,8 +55,9 @@ public class HomeFragment extends Fragment implements MealContract.View {
 
         categoryRecyclerView = view.findViewById(R.id.categoriesItems);
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
-
+       //  presenter.getMealsByCountry();
       //  presenter = new MealPresenter(this);
+
         presenter.getMealCategoriesList();
         return view;
     }
@@ -97,5 +104,11 @@ public class HomeFragment extends Fragment implements MealContract.View {
     public void showCategories(List<Category> categoryList) {
         categoryAdapter = new MealCategoryAdapter(categoryList);
         categoryRecyclerView.setAdapter(categoryAdapter);
+    }
+
+    @Override
+    public void showCountries(List<Country> countryList) {
+        countryAdapter = new CountryAdapter(countryList);
+        countryRecyclerView.setAdapter(countryAdapter);
     }
 }
