@@ -1,5 +1,6 @@
 package com.example.faty.retrofit;
 
+import com.example.faty.pojo.CountryList;
 import com.example.faty.pojo.Meal;
 import com.example.faty.pojo.MealCategoryList;
 import com.example.faty.pojo.MealList;
@@ -21,6 +22,9 @@ public interface MealApi {
 
     @GET("categories.php")
     Call<MealCategoryList> getMealCategoriesList();
+
+    @GET("list.php?a")
+    Call<CountryList> getMealsCountry();
 
 
 

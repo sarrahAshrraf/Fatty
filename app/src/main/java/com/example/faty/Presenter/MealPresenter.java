@@ -1,5 +1,6 @@
 package com.example.faty.Presenter;
 
+import com.example.faty.pojo.CountryList;
 import com.example.faty.pojo.MealCategoryList;
 import com.example.faty.pojo.MealList;
 import com.example.faty.retrofit.MealApi;
@@ -95,4 +96,37 @@ public class MealPresenter implements MealContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void getMealsByCountry() {
+        Call<CountryList> call = mealApi.getMealsCountry();
+        call.enqueue(new Callback<CountryList>() {
+            @Override
+            public void onResponse(Call<CountryList> call, Response<CountryList> response) {
+                if (response.isSuccessful()) {
+                    CountryList countryList = response.body();
+                    if (countryList != null) {
+                        view.showCountries(countryList.getCountries());
+                    } else {
+                        view.displayError("No countries found");
+                    }
+                } else {
+                    view.displayError("API request failed");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CountryList> call, Throwable t) {
+                view.displayError("API request failed: " + t.getMessage());
+            }
+        });
+    }
+
+
+
+
+
+
+
+
 }
