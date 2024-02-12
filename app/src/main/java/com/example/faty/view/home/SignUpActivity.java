@@ -15,10 +15,16 @@ import android.widget.Toast;
 
 import com.example.faty.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
     FirebaseAuth auth;
@@ -26,6 +32,8 @@ public class SignUpActivity extends AppCompatActivity {
     EditText edEmail, edPassword, edConfPass;
     Button btnNormSignUp;
     ProgressBar progressBar;
+    FirebaseFirestore fStore;
+    String userID;
     @Override
     public void onStart() {
         super.onStart();
@@ -104,6 +112,16 @@ public class SignUpActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // User signup successful
                                     Toast.makeText(SignUpActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
+                                    userID =auth.getCurrentUser().getUid();
+                                   // DocumentReference documentReference = fStore.collection("users").document(userID);
+                                   // Map<String,Object> user = new HashMap<>();
+                                    ///user.put("uEmail",email);
+//                                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                        @Override
+//                                        public void onSuccess(Void unused) {
+//                                            Toast.makeText(SignUpActivity.this, "doc user added", Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    });
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
                                     finish();

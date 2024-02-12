@@ -74,17 +74,14 @@ public class MealFragment extends Fragment implements MealContract.View {
             mealId = bundle.getString("mealId");
             presenter.getMealDetails(mealId);
         }
-        mealDTO.setIdMeal(mealId);
-        mealDTO.setStrCategory(tvMealCategory.getText().toString());
-        mealDTO.setStrArea(tvMealCountry.getText().toString());
-        mealDTO.setStrInstructions(tvMealInstructions.getText().toString());
+
       //  mealDTO.setStrMeal(strMealName);
       //  mealDTO.setStrYoutube(""); // Set the YouTube URL here
        // mealDTO.setStrMeal(""); // Set the meal name here
         btnFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                addFav();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -147,7 +144,15 @@ public class MealFragment extends Fragment implements MealContract.View {
 
     }
 
+void addFav(){
 
+    mealDTO.setIdMeal(mealId);
+    mealDTO.setStrCategory(tvMealCategory.getText().toString());
+    mealDTO.setStrArea(tvMealCountry.getText().toString());
+    mealDTO.setStrInstructions(tvMealInstructions.getText().toString());
+
+
+}
 
 
 
