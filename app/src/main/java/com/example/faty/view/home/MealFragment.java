@@ -48,6 +48,7 @@ public class MealFragment extends Fragment implements MealContract.View {
     MealDatabase db;
     MealDao dao;
     String strMealName;
+    String youtUrl;
 
 
 
@@ -115,7 +116,9 @@ public class MealFragment extends Fragment implements MealContract.View {
         tvMealInstructions.setText(meal.getStrInstructions());
         tvMealCountry.setText(meal.getStrArea());
         collapsingToolbarLayout.setTitle(meal.getStrMeal());
-      //  strMealName = meal.getStrMeal();
+//to pass meal detail to MealDTO and save it in the db
+      strMealName = meal.getStrMeal();
+      youtUrl= meal.getStrYoutube();
 
 
     //    String vid = "<iframe width=\"100%\" height=\"100%\" src=\""+meal.getStrYoutube()+"\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
@@ -150,7 +153,9 @@ void addFav(){
     mealDTO.setStrCategory(tvMealCategory.getText().toString());
     mealDTO.setStrArea(tvMealCountry.getText().toString());
     mealDTO.setStrInstructions(tvMealInstructions.getText().toString());
-
+    //saving from the fragment into db
+    mealDTO.setStrMeal(strMealName);
+    mealDTO.setStrYoutube(youtUrl);
 
 }
 
