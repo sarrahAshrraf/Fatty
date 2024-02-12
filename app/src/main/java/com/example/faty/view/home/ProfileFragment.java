@@ -16,7 +16,8 @@ public class ProfileFragment extends Fragment {
 
   TextView name, email;
   FirebaseAuth fAuth;
-  Firebasef
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
