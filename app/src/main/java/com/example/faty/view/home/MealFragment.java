@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,10 +19,14 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.faty.Presenter.MealContract;
 import com.example.faty.Presenter.MealPresenter;
 import com.example.faty.R;
+import com.example.faty.database.MealDTO;
+import com.example.faty.database.MealDao;
+import com.example.faty.database.MealDatabase;
 import com.example.faty.pojo.Category;
 import com.example.faty.pojo.Country;
 import com.example.faty.pojo.Meal;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -38,6 +43,11 @@ public class MealFragment extends Fragment implements MealContract.View {
     private String mealId;
     private WebView webView;
     CollapsingToolbarLayout collapsingToolbarLayout ;
+    private FloatingActionButton btnFavorite;
+    MealDTO mealDTO;
+    MealDatabase db;
+    MealDao dao;
+    String strMealName;
 
 
 
@@ -50,8 +60,13 @@ public class MealFragment extends Fragment implements MealContract.View {
         tvMealCountry = view.findViewById(R.id.tvcountryMeal);
         webView = view.findViewById(R.id.mealVid);
         collapsingToolbarLayout = view.findViewById(R.id.collapsingToolbarLayout);
+        btnFavorite = view.findViewById(R.id.btnFavorite);
+
         presenter = new MealPresenter(this);
         presenter.getRandomMeal();
+        mealDTO = new MealDTO();
+        db = MealDatabase.getInstance(requireContext());
+        dao = db.mealDao();
 
 
         Bundle bundle = getArguments();
@@ -59,6 +74,31 @@ public class MealFragment extends Fragment implements MealContract.View {
             mealId = bundle.getString("mealId");
             presenter.getMealDetails(mealId);
         }
+        mealDTO.setIdMeal(mealId);
+        mealDTO.setStrCategory(tvMealCategory.getText().toString());
+        mealDTO.setStrArea(tvMealCountry.getText().toString());
+        mealDTO.setStrInstructions(tvMealInstructions.getText().toString());
+      //  mealDTO.setStrMeal(strMealName);
+      //  mealDTO.setStrYoutube(""); // Set the YouTube URL here
+       // mealDTO.setStrMeal(""); // Set the meal name here
+        btnFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dao.insertMeal(mealDTO);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getActivity(), "Added to favorites", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }).start();
+            }
+        });
         return view;
     }
 
@@ -78,6 +118,7 @@ public class MealFragment extends Fragment implements MealContract.View {
         tvMealInstructions.setText(meal.getStrInstructions());
         tvMealCountry.setText(meal.getStrArea());
         collapsingToolbarLayout.setTitle(meal.getStrMeal());
+      //  strMealName = meal.getStrMeal();
 
 
     //    String vid = "<iframe width=\"100%\" height=\"100%\" src=\""+meal.getStrYoutube()+"\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
@@ -104,5 +145,15 @@ public class MealFragment extends Fragment implements MealContract.View {
     @Override
     public void showCountries(List<Country> countryList) {
 
+    }
+
+
+
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+       // MealDatabase.getInstance(requireContext()).closeDatabase();
     }
 }
