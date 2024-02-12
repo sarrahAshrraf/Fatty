@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase;
 public abstract class MealDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "meals.db";
 
-    private static MealDatabase instance= null;
+    private static MealDatabase instance = null;
 
     public abstract MealDao mealDao();
 
@@ -21,4 +21,10 @@ public abstract class MealDatabase extends RoomDatabase {
         }
         return instance;
     }
+
+//    public void closeDatabase() {
+//        if (isOpen()) {
+//            close();
+//        }
+//    }
 }

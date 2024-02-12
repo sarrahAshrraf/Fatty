@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment implements MealContract.View {
 
         mealNameTextView.setText(meal.getStrMeal());
         mealCatTxt.setText(meal.getStrCategory());
-        mealId = meal.getidMeal();
+        mealId = meal.getIdMeal();
     }
 
     @Override

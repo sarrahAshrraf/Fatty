@@ -40,16 +40,16 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/favorite"
-    app:backgroundTint="@color/buttons"
-    app:tint="@color/white"
-    app:layout_anchor="@id/appBar"
-    app:layout_anchorGravity="bottom|end"
-    android:layout_margin="@dimen/_10sdp"
-    />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:src="@drawable/favorite"
+        app:backgroundTint="@color/buttons"
+        app:layout_anchor="@id/appBar"
+        app:layout_anchorGravity="bottom|end"
+        app:tint="@color/white" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
