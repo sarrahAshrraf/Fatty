@@ -72,8 +72,11 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                            if (task.isSuccessful()){
                                auth = FirebaseAuth.getInstance();
-                               Glide.with(LoginActivity.this).load(Objects.requireNonNull(auth.getCurrentUser()).getPhotoUrl()).into(ImageView);
+                               //Glide.with(LoginActivity.this).load(Objects.requireNonNull(auth.getCurrentUser()).getPhotoUrl()).into(ImageView);
                                 //name.setText();
+                               Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                               startActivity(intent);
+                               finish();
                            }
                         }
                     });
