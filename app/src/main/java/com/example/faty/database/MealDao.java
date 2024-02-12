@@ -14,7 +14,7 @@ import retrofit2.http.DELETE;
 
 @Dao
 public interface MealDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertMeal(MealDTO meal);
 
     @Query("SELECT * FROM favmeals")
