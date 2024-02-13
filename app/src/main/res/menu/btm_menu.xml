@@ -8,12 +8,16 @@
         android:icon="@drawable/favorite"
         android:id="@+id/favouritesFragment"
         />
-    <item android:title="Categories"
-        android:id="@+id/catigoriesFragment"
-        android:icon="@drawable/category"/>
     <item android:title="Search"
         android:id="@+id/searchFragment2"
         android:icon="@drawable/searchblack"/>
+    <item android:title="Categories"
+        android:id="@+id/catigoriesFragment"
+        android:icon="@drawable/category"/>
+
+    <item android:title="Profile"
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/person"/>
 
 
 </menu>

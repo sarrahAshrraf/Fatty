@@ -19,7 +19,9 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ImageView imageViewGif = findViewById(R.id.imageViewGif);
-        Glide.with(this).asGif().load(R.drawable.live_cooking_lab).into(imageViewGif);
+        ImageView img = findViewById(R.id.img);
+        Glide.with(this).asGif().load(R.drawable.live_cooking_lab).into(img);
+        Glide.with(this).asGif().load(R.drawable.fattyfoods).into(imageViewGif);
 
         handler=new Handler();
         handler.postDelayed(new Runnable() {
