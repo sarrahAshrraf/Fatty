@@ -61,6 +61,7 @@ public class MealFragment extends Fragment implements MealContract.View {
         tvMealCountry = view.findViewById(R.id.tvcountryMeal);
         webView = view.findViewById(R.id.mealVid);
         collapsingToolbarLayout = view.findViewById(R.id.collapsingToolbarLayout);
+        collapsingToolbarLayout.animate();//???
         btnFavorite = view.findViewById(R.id.btnFavorite);
 
         presenter = new MealPresenter(this);
@@ -140,6 +141,11 @@ public class MealFragment extends Fragment implements MealContract.View {
     @Override
     public String getMealId() {
         return mealId;
+    }
+
+    @Override
+    public String getCategoryName() {
+        return null;
     }
 
     @Override

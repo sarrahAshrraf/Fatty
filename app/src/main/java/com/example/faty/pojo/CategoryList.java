@@ -2,7 +2,7 @@ package com.example.faty.pojo;
 
 import java.util.List;
 
-public class MealCategoryList {
+public class CategoryList {
     private List<Category> categories;
 
     public List<Category> getCategories() { return categories; }

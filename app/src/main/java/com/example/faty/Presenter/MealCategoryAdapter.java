@@ -18,16 +18,29 @@ import java.util.List;
 public class MealCategoryAdapter extends RecyclerView.Adapter<MealCategoryAdapter.ViewHolder> {
 
     private List<Category> categoryList;
+    private OnCategoryClickListner listner;
 
-    public MealCategoryAdapter(List<Category> categoryList) {
+    public MealCategoryAdapter(List<Category> categoryList, OnCategoryClickListner listner) {
         this.categoryList = categoryList;
+        this.listner = listner;
+
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item, parent, false);
-        return new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view);
+
+        viewHolder.itemView.setOnClickListener(v -> {
+            int position = viewHolder.getAdapterPosition();
+            String catName =null;
+            if (listner != null) {
+                listner.onItemClick(position,catName);
+            }
+        });
+
+        return viewHolder;
     }
 
     @Override

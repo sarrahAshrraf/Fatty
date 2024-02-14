@@ -13,6 +13,11 @@
         <action
             android:id="@+id/action_homeFragment_to_mealFragment"
             app:destination="@id/mealFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_catigoriesFragment"
+            app:destination="@id/catigoriesFragment"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/favouritesFragment"

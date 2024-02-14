@@ -7,6 +7,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.example.faty.Presenter.MealCategoryAdapter;
 import com.example.faty.Presenter.MealContract;
 import com.example.faty.Presenter.MealPresenter;
 
+import com.example.faty.Presenter.OnCategoryClickListner;
 import com.example.faty.pojo.Category;
 import com.example.faty.pojo.Country;
 import com.example.faty.pojo.Meal;
@@ -29,7 +31,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements MealContract.View {
+public class HomeFragment extends Fragment implements MealContract.View , OnCategoryClickListner {
 
     private MealContract.Presenter presenter;
     private ImageView mealImageView;
@@ -41,6 +43,8 @@ public class HomeFragment extends Fragment implements MealContract.View {
     private RecyclerView countryRecyclerView;
     private CountryAdapter countryAdapter;
     private String country;
+
+    private  String categoryName;
 
 
     @Override
@@ -55,8 +59,10 @@ public class HomeFragment extends Fragment implements MealContract.View {
 
         categoryRecyclerView = view.findViewById(R.id.categoriesItems);
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
-       //  presenter.getMealsByCountry();
-      //  presenter = new MealPresenter(this);
+
+        countryRecyclerView = view.findViewById(R.id.countryItems);
+        countryRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+        presenter.getMealsByCountry();
 
         presenter.getMealCategoriesList();
         return view;
@@ -86,6 +92,11 @@ public class HomeFragment extends Fragment implements MealContract.View {
         return mealId;
     }
 
+    @Override
+    public String getCategoryName() {
+        return categoryName;
+    }
+
     public void onRandomClick(){
         mealImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +113,7 @@ public class HomeFragment extends Fragment implements MealContract.View {
 
     @Override
     public void showCategories(List<Category> categoryList) {
-        categoryAdapter = new MealCategoryAdapter(categoryList);
+        categoryAdapter = new MealCategoryAdapter(categoryList,this);
         categoryRecyclerView.setAdapter(categoryAdapter);
     }
 
@@ -110,5 +121,18 @@ public class HomeFragment extends Fragment implements MealContract.View {
     public void showCountries(List<Country> countryList) {
         countryAdapter = new CountryAdapter(countryList);
         countryRecyclerView.setAdapter(countryAdapter);
+    }
+
+    @Override
+    public void onItemClick(int position, String categoryName) {
+        presenter.getMealsOfCertainCategory(categoryName);
+
+
+        categoryAdapter.getItemId(position);
+        Log.d("MyFragment", "Clicked item at position: " + position + ", text: ");
+        Bundle bundle = new Bundle();
+
+
+        Navigation.findNavController(requireActivity(), R.id.categoriesItems).navigate(R.id.action_homeFragment_to_catigoriesFragment);
     }
 }
