@@ -7,6 +7,7 @@ import com.example.faty.HomeFragment;
 import com.example.faty.pojo.Country;
 import com.example.faty.pojo.CountryList;
 import com.example.faty.pojo.CategoryList;
+import com.example.faty.pojo.Meal;
 import com.example.faty.pojo.MealList;
 import com.example.faty.retrofit.MealApi;
 import com.example.faty.retrofit.RetrofitClient;
@@ -144,7 +145,10 @@ public class MealPresenter implements MealContract.Presenter {
                 if (response.isSuccessful()) {
                     MealList mealList = response.body();
                     if (mealList != null && mealList.getMeals() != null && !mealList.getMeals().isEmpty()) {
-                        view.displayMeal(mealList.getMeals().get(0));
+                        for (Meal meal : mealList.getMeals()) {
+                            view.displayMeal(meal);
+                            Log.i("lkjhsgfr5s678werhj", "onResponse: "+meal.getStrMeal());
+                        }
                     } else {
                         view.displayError("No meals found");
                     }

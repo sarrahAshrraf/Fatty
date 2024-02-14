@@ -2,6 +2,15 @@ package com.example.faty.pojo;
 
 public class Meal {
 
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "strMEal='" + strMeal + '\'' +
+                '}';}
+
+
+
     private String strIngredient10;
     private String strIngredient12;
     private String strIngredient11;

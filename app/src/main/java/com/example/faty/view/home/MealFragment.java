@@ -134,6 +134,8 @@ public class MealFragment extends Fragment implements MealContract.View {
 
     }
 
+
+
     @Override
     public void displayError(String message) {
         Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();

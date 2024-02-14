@@ -31,9 +31,10 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements MealContract.View , OnCategoryClickListner {
+public class HomeFragment extends Fragment implements MealContract.View, OnCategoryClickListner, MealCategoryAdapter.OnCategoryClickListener {
 
     private MealContract.Presenter presenter;
+    OnCategoryClickListner listner;
     private ImageView mealImageView;
     private TextView mealNameTextView;
     private TextView mealCatTxt;
@@ -82,6 +83,8 @@ public class HomeFragment extends Fragment implements MealContract.View , OnCate
         mealId = meal.getIdMeal();
     }
 
+
+
     @Override
     public void displayError(String message) {
        Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();
@@ -94,6 +97,7 @@ public class HomeFragment extends Fragment implements MealContract.View , OnCate
 
     @Override
     public String getCategoryName() {
+        Log.i("SDFGGREW$T%", "getCategoryName: "+categoryName);
         return categoryName;
     }
 
@@ -104,7 +108,9 @@ public class HomeFragment extends Fragment implements MealContract.View , OnCate
 
                 Bundle bundle = new Bundle();
                 bundle.putString("mealId", mealId);
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_mealFragment, bundle);            }
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_mealFragment, bundle);
+
+            }
         });
 
 
@@ -114,6 +120,7 @@ public class HomeFragment extends Fragment implements MealContract.View , OnCate
     @Override
     public void showCategories(List<Category> categoryList) {
         categoryAdapter = new MealCategoryAdapter(categoryList,this);
+        Log.i("showCategoris fun in home", "showCategories: "+categoryName);
         categoryRecyclerView.setAdapter(categoryAdapter);
     }
 
@@ -125,14 +132,31 @@ public class HomeFragment extends Fragment implements MealContract.View , OnCate
 
     @Override
     public void onItemClick(int position, String categoryName) {
-        presenter.getMealsByCategory(categoryName);
-
-
+        this.categoryName = categoryName;
         categoryAdapter.getItemId(position);
         Log.d("MyFragment", "Clicked item at position: " + position + ", text: ");
         Bundle bundle = new Bundle();
+        bundle.putString("catName", categoryName);
 
 
-        Navigation.findNavController(requireActivity(), R.id.categoriesItems).navigate(R.id.action_homeFragment_to_catigoriesFragment);
+        presenter.getMealsByCategory(categoryName); // Move this line below setting the categoryName
+        Navigation.findNavController(requireView()).navigate(R.id.action_homeFragment_to_catigoriesFragment, bundle);
+      //  Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_catigoriesFragment, bundle);
+       // Navigation.findNavController(requireActivity(), R.id.categoriesItems).navigate(R.id.action_homeFragment_to_catigoriesFragment, bundle);
+    }
+
+
+    @Override
+    public void onCategoryClick(int position, Category category, String categoryName) {
+        this.categoryName = categoryName;
+        categoryAdapter.getItemId(position);
+        Log.d("MyFragment", "Clicked item at position: " + position + ", text: ");
+        Bundle bundle = new Bundle();
+        bundle.putString("catName", categoryName);
+
+
+        presenter.getMealsByCategory(categoryName); // Move this line below setting the categoryName
+        Navigation.findNavController(requireView()).navigate(R.id.action_homeFragment_to_catigoriesFragment, bundle);
+        Log.i("TAG", "onCategoryClick: "+category.getStrCategory());
     }
 }
