@@ -9,10 +9,10 @@ import java.util.List;
 public interface MealContract {
     interface View {
         void showCategories(List<Category> categoryList);
-
         void displayMeal(Meal meal);
         void displayError(String message);
         String getMealId();
+        String getCategoryName();
         void showCountries(List<Country> countryList);
     }
 
@@ -21,7 +21,7 @@ public interface MealContract {
         void getMealDetails(String mealId);
         void getMealCategoriesList();
         void getMealsByCountry();
-       // void getMealsByCountry(String country);
+        void getMealsByCategory(String category);
 
     }
 }

@@ -135,11 +135,30 @@ public class MealPresenter implements MealContract.Presenter {
         });
     }
 
+    @Override
+    public void getMealsByCategory(String category) {
+        Call<MealList> call = mealApi.getMealsOfCertainCategory(category);
+        call.enqueue(new Callback<MealList>() {
+            @Override
+            public void onResponse(Call<MealList> call, Response<MealList> response) {
+                if (response.isSuccessful()) {
+                    MealList mealList = response.body();
+                    if (mealList != null && mealList.getMeals() != null && !mealList.getMeals().isEmpty()) {
+                        view.displayMeal(mealList.getMeals().get(0));
+                    } else {
+                        view.displayError("No meals found");
+                    }
+                } else {
+                    view.displayError("API request failed");
+                }
+            }
 
-
-
-
-
+            @Override
+            public void onFailure(Call<MealList> call, Throwable t) {
+                view.displayError("API request failed: " + t.getMessage());
+            }
+        });
+    }
 
 
 }
