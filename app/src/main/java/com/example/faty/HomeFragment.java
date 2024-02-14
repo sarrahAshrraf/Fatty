@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment implements MealContract.View , OnCate
 
     @Override
     public void onItemClick(int position, String categoryName) {
-        presenter.getMealsOfCertainCategory(categoryName);
+        presenter.getMealsByCategory(categoryName);
 
 
         categoryAdapter.getItemId(position);
