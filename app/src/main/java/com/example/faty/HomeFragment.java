@@ -55,8 +55,10 @@ public class HomeFragment extends Fragment implements MealContract.View {
 
         categoryRecyclerView = view.findViewById(R.id.categoriesItems);
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
-       //  presenter.getMealsByCountry();
-      //  presenter = new MealPresenter(this);
+
+        countryRecyclerView = view.findViewById(R.id.countryItems);
+        countryRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+        presenter.getMealsByCountry();
 
         presenter.getMealCategoriesList();
         return view;

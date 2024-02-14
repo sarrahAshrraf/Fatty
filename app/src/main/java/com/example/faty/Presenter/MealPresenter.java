@@ -1,10 +1,17 @@
 package com.example.faty.Presenter;
 
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.faty.HomeFragment;
+import com.example.faty.pojo.Country;
 import com.example.faty.pojo.CountryList;
-import com.example.faty.pojo.MealCategoryList;
+import com.example.faty.pojo.CategoryList;
 import com.example.faty.pojo.MealList;
 import com.example.faty.retrofit.MealApi;
 import com.example.faty.retrofit.RetrofitClient;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -74,12 +81,12 @@ public class MealPresenter implements MealContract.Presenter {
 
     @Override
     public void getMealCategoriesList() {
-        Call<MealCategoryList> call = mealApi.getMealCategoriesList();
-        call.enqueue(new Callback<MealCategoryList>() {
+        Call<CategoryList> call = mealApi.getMealCategoriesList();
+        call.enqueue(new Callback<CategoryList>() {
             @Override
-            public void onResponse(Call<MealCategoryList> call, Response<MealCategoryList> response) {
+            public void onResponse(Call<CategoryList> call, Response<CategoryList> response) {
                 if (response.isSuccessful()) {
-                    MealCategoryList categoryList = response.body();
+                    CategoryList categoryList = response.body();
                     if (categoryList != null) {
                         view.showCategories(categoryList.getCategories());
                     } else {
@@ -91,7 +98,7 @@ public class MealPresenter implements MealContract.Presenter {
             }
 
             @Override
-            public void onFailure(Call<MealCategoryList> call, Throwable t) {
+            public void onFailure(Call<CategoryList> call, Throwable t) {
                 view.displayError("API request failed: " + t.getMessage());
             }
         });
@@ -106,8 +113,12 @@ public class MealPresenter implements MealContract.Presenter {
                 if (response.isSuccessful()) {
                     CountryList countryList = response.body();
                     if (countryList != null) {
-                        view.showCountries(countryList.getCountries());
+                        List<Country> countries = countryList.getCountries();
+
+                            view.showCountries(countries);
+
                     } else {
+                        Log.i("NOOOOOOOOOOOOOOOOOOOO", "Fail: ");
                         view.displayError("No countries found");
                     }
                 } else {
@@ -117,6 +128,8 @@ public class MealPresenter implements MealContract.Presenter {
 
             @Override
             public void onFailure(Call<CountryList> call, Throwable t) {
+                Log.i("NOOOOOOOOOOOOOO2345OOOOOO", "Fail: ");
+
                 view.displayError("API request failed: " + t.getMessage());
             }
         });

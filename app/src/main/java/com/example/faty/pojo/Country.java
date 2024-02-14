@@ -10,4 +10,10 @@ public class Country {
     public void setStrArea(String strArea) {
         this.strArea = strArea;
     }
+    @Override
+    public String toString() {
+        return "Country{" +
+                "strArea='" + strArea + '\'' +
+                '}';}
+
 }
